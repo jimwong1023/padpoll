@@ -1,0 +1,9 @@
+<% if flash[:errors] %>
+	<% flash[:errors].each do |error| %>
+		<li><%= error %></li>
+	<% end %>
+<% end %>
+
+<% if signed_in? %>
+	<h1>HELLO <%= current_user.first_name %></h1>
+<% end %>
