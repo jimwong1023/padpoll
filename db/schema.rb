@@ -20,12 +20,15 @@ ActiveRecord::Schema.define(version: 20140908060043) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.string   "password_digest"
-    t.string   "remember_token"
+    t.text     "image"
+    t.text     "url"
     t.text     "oauth_token"
     t.datetime "oauth_expires"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["oauth_token"], name: "index_users_on_oauth_token", using: :btree
 
 end
