@@ -1,0 +1,6 @@
+var app = app || {};
+
+app.Community = Backbone.Collection.extend({
+	model: app.Property,
+	url: '/api/properties'
+});

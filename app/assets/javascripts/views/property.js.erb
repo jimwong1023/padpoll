@@ -1,0 +1,23 @@
+var app = app || {};
+
+app.PropertyView = Backbone.View.extend({
+	tagName: 'div',
+	className: 'propertyContainer',
+	template: _.template( JST['propertyTemplate'] ),
+
+	events: {
+		'click .delete': 'deleteProperty'
+	},
+
+	deleteProperty: function() {
+		this.model.destroy( { wait: true } );
+
+		this.remove();
+	},
+
+	render: function() {
+		this.$el.html( this.template(this.model.attributes) );
+
+		return this;
+	}
+});

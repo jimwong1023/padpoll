@@ -6,4 +6,21 @@
 
 <% if signed_in? %>
 	<h1>HELLO <%= current_user.first_name %></h1>
+	<%= link_to "Sign out", signout_path, method: "delete" %>
+	<div id="properties">
+		<form id="addProperty" action="#">
+			<div>
+				<label for="photo">Photo: </label><input id="photo" type="file" />
+				<label for="address">Address: </label><input id="address" type="text" />
+				<label for="city">City: </label><input id="city" type="text" />
+				<label for="state">State: </label><input id="state" type="text" />
+				<label for="zip">Zip Code: </label><input id="zip" type="text" />
+				<button id="add">Add</button>
+			</div>
+		</form>
+	</div>
+<% else %>
+	<form action="http://localhost:3000/auth/facebook">
+		<input type="image" src="<%= asset_path 'fb_login.png'%>" />
+	</form>
 <% end %>

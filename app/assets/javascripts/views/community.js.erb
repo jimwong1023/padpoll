@@ -1,0 +1,53 @@
+var app = app || {};
+
+app.CommunityView = Backbone.View.extend({
+	el: '#properties',
+
+	initialize: function( initialProperties ) {
+		this.collection = new app.Community( initialProperties );
+		this.collection.fetch( {reset: true} );
+		this.render();
+
+		this.listenTo( this.collection, 'add', this.renderProperty );
+		this.listenTo( this.collection, 'reset', this.render );
+	},
+
+	events: {
+		'click #add': 'addProperty'
+	},
+
+	addProperty: function(e) {
+		e.preventDefault();
+
+		var formData = {};
+
+		$( '#addProperty div' ).children( 'input' ).each( function( i, el ) {
+			if( $( el ).val() != '' ) {
+				formData[ el.id ] = $( el ).val();
+			}
+		});
+	
+		this.collection.create( formData, { 
+			success: function( model, response ) {
+				alert( "SUCCESS" );
+			},
+			error: function( model, response ) {
+				alert( "ERROR" );
+			},
+			wait: true 
+		});
+	},
+
+	render: function() {
+		this.collection.each(function( item ) {
+			this.renderProperty( item );
+		}, this);
+	},
+
+	renderProperty: function( item ) {
+		var propertyView = new app.PropertyView({
+			model: item
+		});
+		this.$el.prepend( propertyView.render().el );
+	}
+});

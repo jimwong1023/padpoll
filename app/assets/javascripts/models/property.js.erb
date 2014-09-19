@@ -1,0 +1,11 @@
+var app = app || {};
+
+app.Property = Backbone.Model.extend({
+	defaults: {
+		photo: "<%= asset_path('default-image200.png') %>",
+		address: 'No address',
+		city: 'NA',
+		state: 'NA',
+		zip: 'NA'
+	}
+});

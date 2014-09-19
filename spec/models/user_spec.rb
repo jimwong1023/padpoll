@@ -1,16 +1,13 @@
 require 'rails_helper'
 
 describe User do
-  before { @user = User.new(first_name: "Example", last_name: "Last", email: "user@example.com", password: "foobar", password_confirmation: "foobar") }
+  before { @user = User.new(first_name: "Example", last_name: "Last", email: "user@example.com") }
 
   subject { @user }
 
   it { should respond_to(:first_name) }
   it { should respond_to(:last_name) }
   it { should respond_to(:email) }
-  it { should respond_to(:password_digest) }
-  it { should respond_to(:password) }
-  it { should respond_to(:password_confirmation) }
   it { should respond_to(:oauth_token) }
   it { should respond_to(:oauth_expires) }
 
@@ -78,25 +75,5 @@ describe User do
       @user.save
       @user.reload.email.should == mixed_case_email.downcase
     end
-  end
-
-   describe "with a password that's too short" do
-    before { @user.password = @user.password_confirmation = "a" * 5 }
-    it { should be_invalid }
-  end
-
-  describe "when password is not present" do
-    before { @user.password = @user.password_confirmation = " " }
-    it { should_not be_valid }
-  end
-
-  describe "when password doesn't match confirmation" do
-    before { @user.password_confirmation = "mismatch" }
-    it { should_not be_valid }
-  end
-
-  describe "when password confirmation is nil" do
-    before { @user.password_confirmation = nil }
-    it { should_not be_valid }
   end
 end
